@@ -75,9 +75,8 @@ while True:
             #    print("false")
             cur.execute("SELECT * from 'transaction'")
             result = cur.fetchall()
-            #bought_price = str(result)[2]
-            print(result)
-            #print(bought_price)
+            bought_price = str(result[1])
+            print(bought_price)
             if int(current_price) <= int(bought_price):
                 btc = get_balance("BTC")
                 if btc > 0.00008:
