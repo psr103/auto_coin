@@ -47,6 +47,7 @@ upbit = pyupbit.Upbit(access, secret)
 print("autotrade start")
 c = sqlite3.connect("/home/ec2-user/auto_coin/data.db")
 cur= c.cursor()
+cur.execute("INSERT into 'transaction' (price) VALUES ('10000')")
 while True:
     try:
         cur.execute("SELECT COUNT(*) from 'transaction'")
