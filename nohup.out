@@ -1,0 +1,29 @@
+autotrade start
+unsupported operand type(s) for %: 'NoneType' and 'float'
+autotrade start
+unsupported operand type(s) for %: 'NoneType' and 'str'
+'NoneType' object has no attribute 'iloc'
+'NoneType' object has no attribute 'iloc'
+'NoneType' object has no attribute 'iloc'
+'NoneType' object is not subscriptable
+'NoneType' object is not subscriptable
+'NoneType' object has no attribute 'index'
+Expecting value: line 1 column 1 (char 0)
+500
+Internal Server Error
+internal_server_error
+'NoneType' object is not subscriptable
+500
+Internal Server Error
+internal_server_error
+'NoneType' object has no attribute 'index'
+unsupported operand type(s) for %: 'NoneType' and 'str'
+unsupported operand type(s) for %: 'NoneType' and 'str'
+unsupported operand type(s) for %: 'NoneType' and 'str'
+unsupported operand type(s) for %: 'NoneType' and 'str'
+unsupported operand type(s) for %: 'NoneType' and 'str'
+unsupported operand type(s) for %: 'NoneType' and 'str'
+unsupported operand type(s) for %: 'NoneType' and 'str'
+unsupported operand type(s) for %: 'NoneType' and 'str'
+unsupported operand type(s) for %: 'NoneType' and 'str'
+unsupported operand type(s) for %: 'NoneType' and 'str'

@@ -62,9 +62,9 @@ while True:
                     upbit.buy_market_order("KRW-BTC", krw*0.9995)
                     krw = get_balance("KRW")
                     btc = get_balance("BTC")
-                    post_message(myToken,"#autocoin","Buying in progress")
-                    post_message(myToken,"#autocoin","KRW: %s")%krw
-                    post_message(myToken,"#autocoin","BTC: %s")%btc
+                    post_message(myToken,"#autocoin","BTC buy in progress")
+                    post_message(myToken,"#autocoin","KRW: %s")%str(krw)
+                    post_message(myToken,"#autocoin","BTC: %s")%str(btc)
                     
                     
         else:
@@ -73,9 +73,9 @@ while True:
                 upbit.sell_market_order("KRW-BTC", btc*0.9995)
                 krw = get_balance("KRW")
                 btc = get_balance("BTC")
-                post_message(myToken,"#autocoin","Solding in progress")
-                post_message(myToken,"#autocoin","KRW: %s")%krw
-                post_message(myToken,"#autocoin","BTC: %s")%btc
+                post_message(myToken,"#autocoin","BTC sell in progress")
+                post_message(myToken,"#autocoin","KRW: %s")%str(krw)
+                post_message(myToken,"#autocoin","BTC: %s")%str(btc)
         time.sleep(1)
     except Exception as e:
         print(e)
