@@ -1,6 +1,7 @@
 import time
 import pyupbit
 import datetime
+import sqlite3
 import requests
 
 access = "UGBpNlkA7pNwQpp7ltp09wFrxxWmd0caMH4R42qV"
@@ -44,6 +45,7 @@ def get_current_price(ticker):
 
 upbit = pyupbit.Upbit(access, secret)
 print("autotrade start")
+bought_price = 0
 while True:
     try:
         now = datetime.datetime.now()
@@ -54,20 +56,32 @@ while True:
             target_price = get_target_price("KRW-BTC", 0.5)
             ma15 = get_ma15("KRW-BTC")
             current_price = get_current_price("KRW-BTC")
+            #print(current_price)
+            #print(target_price)
             if target_price < current_price and ma15 < current_price:
                 krw = get_balance("KRW")
                 if krw > 5000:
                     upbit.buy_market_order("KRW-BTC", krw*0.9995)
+                    bought_price = int(current_price)
                     krw = get_balance("KRW")
                     btc = get_balance("BTC")
-                    
+            if int(current_price) <= bought_price:
+                btc = get_balance("BTC")
+                if btc > 0.00008:
+                    upbit.sell_market_order("KRW-BTC", btc*0.9995)
+                    krw = get_balance("KRW")
+                    btc = get_balance("BTC")
+                    bought_price = 0
+            #else:
+                #print("Not yet")
         else:
             btc = get_balance("BTC")
             if btc > 0.00008:
                 upbit.sell_market_order("KRW-BTC", btc*0.9995)
                 krw = get_balance("KRW")
                 btc = get_balance("BTC")
-        time.sleep(1)
+                bought_price = 0
+        time.sleep(10)
     except Exception as e:
         print(e)
         time.sleep(1)

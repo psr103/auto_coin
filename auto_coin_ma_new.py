@@ -1,6 +1,7 @@
 import time
 import pyupbit
 import datetime
+import sqlite3
 import requests
 
 access = "UGBpNlkA7pNwQpp7ltp09wFrxxWmd0caMH4R42qV"
@@ -44,8 +45,16 @@ def get_current_price(ticker):
 
 upbit = pyupbit.Upbit(access, secret)
 print("autotrade start")
+c = sqlite3.connect("/home/ec2-user/auto_coin/data.db")
+cur= c.cursor()
+cur.execute("INSERT into 'transaction' (price) VALUES ('10000')")
+#cur.execute("DELETE from 'transaction'")
 while True:
     try:
+        cur.execute("SELECT COUNT(*) from 'transaction'")
+        result = cur.fetchall()
+        is_bought = str(result)[2]
+        print(is_bought)
         now = datetime.datetime.now()
         start_time = get_start_time("KRW-BTC")
         end_time = start_time + datetime.timedelta(days=1)
@@ -58,6 +67,23 @@ while True:
                 krw = get_balance("KRW")
                 if krw > 5000:
                     upbit.buy_market_order("KRW-BTC", krw*0.9995)
+                    buying_price = str(int(current_price))
+                    cur.execute("INSERT into 'transaction' (price) VALUES ('%s')") %(buying_price)
+                    krw = get_balance("KRW")
+                    btc = get_balance("BTC")
+            #if is_bought == "0":
+            #    print("true")
+            #else:
+            #    print("false")
+            cur.execute("SELECT * from 'transaction'")
+            result = cur.fetchall()
+            bought_price = str(result[1])
+            print(bought_price)
+            if int(current_price) <= int(bought_price):
+                btc = get_balance("BTC")
+                if btc > 0.00008:
+                    upbit.sell_market_order("KRW-BTC", btc*0.9995)
+                    cur.execute("DELETE from 'transaction'")
                     krw = get_balance("KRW")
                     btc = get_balance("BTC")
                     
@@ -65,6 +91,7 @@ while True:
             btc = get_balance("BTC")
             if btc > 0.00008:
                 upbit.sell_market_order("KRW-BTC", btc*0.9995)
+                cur.execute("DELETE from 'transaction'")
                 krw = get_balance("KRW")
                 btc = get_balance("BTC")
         time.sleep(1)
